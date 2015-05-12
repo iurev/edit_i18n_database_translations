@@ -1,3 +1,5 @@
+//= require jquery
+
 $ ->
   $body = $('body')
   $editor = $('.js-i18n-text-editor')
