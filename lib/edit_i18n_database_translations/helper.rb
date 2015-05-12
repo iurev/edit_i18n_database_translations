@@ -7,6 +7,7 @@ module EditI18nDatabaseTranslations
     end
 
     def i18n_editor
+      return unless are_you_i18n_editor?
       render template: 'edit_i18n_database_translations/editor.html.erb'
     end
   end
