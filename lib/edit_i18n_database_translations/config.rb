@@ -1,6 +1,6 @@
 module EditI18nDatabaseTranslations
   class Config
-    attr_accessor :user_name, :password, :path_prefix, :allowed_keys
+    attr_accessor :user_name, :password, :path_prefix, :allowed_keys, :favorite_pages
 
     def initialize
       Rails.application.config.assets.precompile += %w( edit_i18n_database_translations.js edit_i18n_database_translations.css bootstrap.css)

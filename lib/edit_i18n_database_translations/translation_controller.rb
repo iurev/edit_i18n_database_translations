@@ -18,7 +18,7 @@ module EditI18nDatabaseTranslations
 
     def admin
       @list_of_keys = []
-      update_list_of_keys('', allowed_translations)
+      update_list_of_keys(prefix, allowed_translations)
       render template: 'edit_i18n_database_translations/admin.html.erb'
     end
 
@@ -54,7 +54,11 @@ module EditI18nDatabaseTranslations
     end
 
     def allowed_translations
-      all_translations.select { |key, _| allowed_keys.include?(key) }
+      if prefix
+        I18n.t(prefix)
+      else
+        all_translations.select { |key, _| allowed_keys.include?(key) }
+      end
     end
 
     def set_locale

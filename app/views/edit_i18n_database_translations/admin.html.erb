@@ -5,9 +5,15 @@
   <%= stylesheet_link_tag "bootstrap"%>
 </head>
 <body>
+  <% config = EditI18nDatabaseTranslations.config %>
   <div>
     <% I18n.available_locales.each do |locale| %>
-      <%= link_to locale, EditI18nDatabaseTranslations.config.admin_path(locale: locale), class: "btn btn-default" %>
+      <%= link_to locale, config.admin_path(locale: locale), class: "btn btn-default" %>
+    <% end %>
+    <br />
+    <%= link_to 'All', config.admin_path(locale: locale), class: "btn btn-default" %>
+    <% config.favorite_pages.each do |page_data| %>
+      <%= link_to page_data[:name], config.admin_path(locale: locale, key: page_data[:key]), class: "btn btn-default" %>
     <% end %>
     <table style="border: 1px dotted black" border="1" class="table table-striped">
       <%- @list_of_keys.each do |key| %>
