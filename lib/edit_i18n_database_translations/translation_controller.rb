@@ -2,9 +2,7 @@ module EditI18nDatabaseTranslations
   class TranslationController < ActionController::Base
     include EditI18nDatabaseTranslations::ControllerModule
 
-    before_action do
-      I18n.locale = params[:locale] || I18n.default_locale
-    end
+    before_action :set_locale, only: [:admin]
 
     def save
       if translation
@@ -44,7 +42,7 @@ module EditI18nDatabaseTranslations
     end
 
     def translation
-      @translation ||= Translation.where(key: params[:key], locale: I18n.locale).first
+      @translation ||= Translation.where(key: params[:key], locale: params[:locale]).first
     end
 
     def allowed_keys
@@ -57,6 +55,10 @@ module EditI18nDatabaseTranslations
 
     def allowed_translations
       all_translations.select { |key, _| allowed_keys.include?(key) }
+    end
+
+    def set_locale
+      I18n.locale = params[:locale] || I18n.default_locale
     end
   end
 end
