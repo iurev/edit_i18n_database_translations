@@ -15,12 +15,12 @@ $ ->
   $body.on 'click', '.js-i18n-text-editor .js-save', ->
     val = $input.val()
     $text.text(val)
-    $editor.hide()
     data =
       key: field_name
       value: val
       locale: locale
     $.post(save_email_path, data)
+    clear()
 
   $body.on 'contextmenu', '.js-i18n-translation', (e) ->
     e.preventDefault()
@@ -29,3 +29,11 @@ $ ->
     text = $(@).text()
     $input.val(text)
     $editor.show()
+
+  clear = ->
+    $editor.hide()
+    $text = null
+    field_name = ''
+    text = ''
+
+  $body.on 'click', '.js-i18n-text-editor .js-undo', clear
