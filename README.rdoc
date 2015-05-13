@@ -1,3 +1,0 @@
-= EditI18nDatabaseTranslations
-
-This project rocks and uses MIT-LICENSE.

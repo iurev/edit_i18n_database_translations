@@ -9,9 +9,10 @@ Gem::Specification.new do |s|
   s.version     = EditI18nDatabaseTranslations::VERSION
   s.authors     = ["wwju"]
   s.email       = ["wwju@yandex.ru"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of EditI18nDatabaseTranslations."
-  s.description = "TODO: Description of EditI18nDatabaseTranslations."
+  s.homepage    = "https://github.com/wwju/edit_i18n_database_translations"
+  s.summary     = "Live editing I18n texts for content managers"
+  s.description = s.summary
+
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
