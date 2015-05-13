@@ -5,6 +5,9 @@
 </head>
 <body>
   <div>
+    <% I18n.available_locales.each do |locale| %>
+      <%= link_to locale, EditI18nDatabaseTranslations.config.admin_path(locale: locale) %>
+    <% end %>
     <table style="border: 1px dotted black" border="1">
       <%- @list_of_keys.each do |key| %>
         <tr>
