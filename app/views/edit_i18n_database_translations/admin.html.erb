@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Admin page</title>
+</head>
+<body>
+  <div>
+    <table style="border: 1px dotted black" border="1">
+      <%- @list_of_keys.each do |key| %>
+        <tr>
+          <td><%= key %></td>
+          <td><%= text(key) %></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+  <%= i18n_editor %>
+</body>
+</html>
