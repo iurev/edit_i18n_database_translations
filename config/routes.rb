@@ -1,4 +1,4 @@
-EditI18nDatabaseTranslations::Engine.routes.draw do
+routes_proc = Proc.new do
   prefix = EditI18nDatabaseTranslations.config.path_prefix
   scope "#{prefix}/i18n_editor" do
     post "/save_translation",
@@ -10,3 +10,7 @@ EditI18nDatabaseTranslations::Engine.routes.draw do
         as: :i18n_editor_admin
   end
 end
+
+EditI18nDatabaseTranslations::Engine.routes.draw(&routes_proc)
+
+Rails.application.routes.draw(&routes_proc)
