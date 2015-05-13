@@ -54,7 +54,7 @@ module EditI18nDatabaseTranslations
     end
 
     def allowed_translations
-      if prefix
+      if !prefix.empty?
         I18n.t(prefix)
       else
         all_translations.select { |key, _| allowed_keys.include?(key) }
