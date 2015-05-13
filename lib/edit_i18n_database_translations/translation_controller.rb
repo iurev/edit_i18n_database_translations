@@ -8,8 +8,8 @@ module EditI18nDatabaseTranslations
       if translation
         translation.update(value: params[:value])
       else
-        Translation.create(locale: I18n.locale,
-                           key: params[:key],
+        Translation.create(locale: params[:locale],
+                           key: prefix,
                            value: params[:value])
       end
       I18n.reload!
@@ -59,6 +59,10 @@ module EditI18nDatabaseTranslations
 
     def set_locale
       I18n.locale = params[:locale] || I18n.default_locale
+    end
+
+    def prefix
+      params[:key].to_s
     end
   end
 end
