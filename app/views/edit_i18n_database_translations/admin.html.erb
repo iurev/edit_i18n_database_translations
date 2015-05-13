@@ -2,13 +2,14 @@
 <html>
 <head>
   <title>Admin page</title>
+  <%= stylesheet_link_tag "bootstrap"%>
 </head>
 <body>
   <div>
     <% I18n.available_locales.each do |locale| %>
-      <%= link_to locale, EditI18nDatabaseTranslations.config.admin_path(locale: locale) %>
+      <%= link_to locale, EditI18nDatabaseTranslations.config.admin_path(locale: locale), class: "btn btn-default" %>
     <% end %>
-    <table style="border: 1px dotted black" border="1">
+    <table style="border: 1px dotted black" border="1" class="table table-striped">
       <%- @list_of_keys.each do |key| %>
         <tr>
           <td><%= key %></td>
