@@ -2,6 +2,10 @@ module EditI18nDatabaseTranslations
   class Config
     attr_accessor :user_name, :password, :path_prefix, :allowed_keys
 
+    def initialize
+      Rails.application.config.assets.precompile += %w( edit_i18n_database_translations.js edit_i18n_database_translations.css )
+    end
+
     def save_translation_path
       url_helpers.i18n_editor_save_translation_path
     end
