@@ -4,6 +4,8 @@ module EditI18nDatabaseTranslations
 
     before_action :set_locale, only: [:admin]
 
+    helper_method :show_images?
+
     def save
       if translation
         translation.update(value: params[:value])
@@ -37,6 +39,9 @@ module EditI18nDatabaseTranslations
           update_list_of_keys(prefix + key.to_s, value)
         }
       else
+        if show_images?
+          return unless EditI18nDatabaseTranslations.config.check_images_proc.call(prefix)
+        end
         @list_of_keys.push(prefix)
       end
     end
@@ -54,6 +59,10 @@ module EditI18nDatabaseTranslations
     end
 
     def allowed_translations
+      if show_images?
+        return all_translations
+      end
+
       if !prefix.empty?
         I18n.t(prefix)
       else
@@ -67,6 +76,10 @@ module EditI18nDatabaseTranslations
 
     def prefix
       params[:key].to_s
+    end
+
+    def show_images?
+      EditI18nDatabaseTranslations.config.show_images_tab && params[:images]
     end
   end
 end

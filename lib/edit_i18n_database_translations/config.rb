@@ -1,6 +1,6 @@
 module EditI18nDatabaseTranslations
   class Config
-    attr_accessor :user_name, :password, :path_prefix, :allowed_keys, :favorite_pages, :show_images_tab
+    attr_accessor :user_name, :password, :path_prefix, :allowed_keys, :favorite_pages, :show_images_tab, :check_images_proc
 
     def initialize
       Rails.application.config.assets.precompile +=
