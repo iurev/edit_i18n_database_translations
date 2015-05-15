@@ -4,20 +4,38 @@
   top: 0
   left: 0
   width: 100%
-  height: 100%
+  height: 50%
   z-index: 1000
-  color: #fff
+  color: #000
 
   .background
-    background: #000
+    background: #fff
     position: absolute
     width: 100%
     height: 100%
     z-index: -1
-    opacity: 0.5
+    opacity: 0.9
 
   img
-    width: 50%
-    height: auto
+    max-width: 50%
+    max-height: 100%
     display: block
-    margin: 0 auto
+    float: left
+
+  #picture
+    float: left
+
+  button
+    float: left
+
+  .undo
+    float: right
+    background-color: rgb(0, 168, 255)
+    line-height: 40px
+    color: #fff
+    width: 100px
+    cursor: pointer
+    user-select: none
+    text-align: center
+    &:hover
+      background-color: rgb(12, 152, 224)

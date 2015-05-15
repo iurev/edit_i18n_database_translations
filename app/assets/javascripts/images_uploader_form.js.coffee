@@ -33,4 +33,7 @@ $ ->
     $form.show()
 
   clear = ->
-    $preview_image
+    stop_watching = false
+    $form.hide()
+
+  $body.on 'click', '.js-images-uploader-form .js-undo', clear
