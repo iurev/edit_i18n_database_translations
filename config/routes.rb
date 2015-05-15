@@ -8,6 +8,10 @@ routes_proc = Proc.new do
     get "/admin",
         to: 'edit_i18n_database_translations/translation#admin',
         as: :i18n_editor_admin
+
+    post '/upload',
+         to: 'edit_i18n_database_translations/translation#upload',
+         as: :i18n_editor_upload
   end
 end
 

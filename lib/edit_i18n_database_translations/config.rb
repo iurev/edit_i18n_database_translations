@@ -3,8 +3,7 @@ module EditI18nDatabaseTranslations
     attr_accessor :user_name, :password, :path_prefix, :allowed_keys, :favorite_pages, :show_images_tab, :check_images_proc
 
     def initialize
-      Rails.application.config.assets.precompile +=
-        %w( edit_i18n_database_translations.js edit_i18n_database_translations.css editor.css )
+      Rails.application.config.assets.precompile += %w( edit_i18n_database_translations.js edit_i18n_database_translations.css editor.css images_uploader_form.css images_uploader_form.js )
     end
 
     def save_translation_path
@@ -13,6 +12,10 @@ module EditI18nDatabaseTranslations
 
     def admin_path(options = {})
       url_helpers.i18n_editor_admin_path(options)
+    end
+
+    def upload_path
+      url_helpers.i18n_editor_upload_path
     end
 
     private

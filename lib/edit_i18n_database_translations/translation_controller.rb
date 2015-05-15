@@ -7,15 +7,9 @@ module EditI18nDatabaseTranslations
     helper_method :show_images?
 
     def save
-      if translation
-        translation.update(value: params[:value])
-      else
-        Translation.create(locale: params[:locale],
-                           key: prefix,
-                           value: params[:value])
-      end
-      I18n.reload!
-      return render(json: {})
+      create_or_update_translation(params[:value])
+      render(json: {})
+
     end
 
     def admin
@@ -24,7 +18,47 @@ module EditI18nDatabaseTranslations
       render template: 'edit_i18n_database_translations/admin.html.erb'
     end
 
+    def upload
+      save_file
+      file_path = ['/sharing_images', random_file_name].join('/')
+      create_or_update_translation(file_path)
+      redirect_to params[:redirect_to]
+    end
+
     private
+
+    def create_or_update_translation(value)
+      if translation
+        translation.update(value: value)
+      else
+        Translation.create(locale: params[:locale],
+                           key: prefix,
+                           value: value)
+      end
+      I18n.reload!
+    end
+
+    def random_file_name
+      return @random_file_name if @random_file_name
+      @random_file_name = random_string +
+                          File.extname(uploaded_io.original_filename)
+    end
+
+    def random_string
+      (0...25).map { ('a'..'z').to_a[rand(26)] }.join
+    end
+
+    def save_file
+      file_path = Rails.root.join('public', 'sharing_images',
+                 random_file_name)
+      File.open(file_path, 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
+    end
+
+    def uploaded_io
+      params[:picture]
+    end
 
     def are_you_i18n_editor?
       true
