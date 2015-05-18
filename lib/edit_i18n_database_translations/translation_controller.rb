@@ -20,7 +20,7 @@ module EditI18nDatabaseTranslations
 
     def upload
       save_file
-      file_path = ['/sharing_images', random_file_name].join('/')
+      file_path = ["/#{conf.save_images_path}", random_file_name].join('/')
       create_or_update_translation(file_path)
       redirect_to params[:redirect_to]
     end
@@ -50,8 +50,9 @@ module EditI18nDatabaseTranslations
     end
 
     def save_file
-      file_path = Rails.root.join('public', 'sharing_images',
-                 random_file_name)
+      file_path = Rails.root.join('public',
+                                  conf.save_images_path,
+                                  random_file_name)
       File.open(file_path, 'wb') do |file|
         file.write(uploaded_io.read)
       end
@@ -62,7 +63,7 @@ module EditI18nDatabaseTranslations
     end
 
     def save_history(key, previous_value, new_value)
-      return unless EditI18nDatabaseTranslations.config.save_changes_history
+      return unless conf.save_changes_history
 
       TranslationsChangesHistory.create(key: key,
                                         previous_value: previous_value,
@@ -83,7 +84,7 @@ module EditI18nDatabaseTranslations
         }
       else
         if show_images?
-          return unless EditI18nDatabaseTranslations.config.check_images_proc.call(prefix)
+          return unless conf.check_images_proc.call(prefix)
         end
         @list_of_keys.push(prefix)
       end
@@ -94,7 +95,7 @@ module EditI18nDatabaseTranslations
     end
 
     def allowed_keys
-      EditI18nDatabaseTranslations.config.allowed_keys
+      conf.allowed_keys
     end
 
     def all_translations
@@ -122,7 +123,11 @@ module EditI18nDatabaseTranslations
     end
 
     def show_images?
-      EditI18nDatabaseTranslations.config.show_images_tab && params[:images]
+      conf.show_images_tab && params[:images]
+    end
+
+    def conf
+      EditI18nDatabaseTranslations.config
     end
   end
 end
