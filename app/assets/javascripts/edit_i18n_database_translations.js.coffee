@@ -28,6 +28,9 @@ $ ->
     $input.val(text)
     $editor.show()
 
+  $body.on 'keyup', '.js-i18n-text-editor .js-input', ->
+    $text.html($(@).val())
+
   clear = ->
     $editor.hide()
     $text = null
