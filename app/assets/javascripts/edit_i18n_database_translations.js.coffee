@@ -12,7 +12,7 @@ $ ->
 
   $body.on 'click', '.js-i18n-text-editor .js-save', ->
     val = $input.val()
-    $text.text(val)
+    $text.html(val)
     data =
       key: field_name
       value: val
@@ -24,7 +24,7 @@ $ ->
     e.preventDefault()
     $text = $(@)
     field_name = $text.data('i18n-path')
-    text = $(@).text()
+    text = $(@).html()
     $input.val(text)
     $editor.show()
 
