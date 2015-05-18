@@ -15,6 +15,7 @@ module EditI18nDatabaseTranslations
     def admin
       @list_of_keys = []
       update_list_of_keys(prefix, allowed_translations)
+      load_translations_keys_from_db
       render template: 'edit_i18n_database_translations/admin.html.erb'
     end
 
@@ -26,6 +27,21 @@ module EditI18nDatabaseTranslations
     end
 
     private
+
+    def load_translations_keys_from_db
+      keys = Translation
+             .where(locale: I18n.locale)
+             .pluck(:key)
+
+      if show_images?
+        keys.select! do |key|
+          conf.check_images_proc.call(key)
+        end
+      end
+
+      @list_of_keys = @list_of_keys + keys
+      @list_of_keys.uniq!
+    end
 
     def create_or_update_translation(value)
       if translation
