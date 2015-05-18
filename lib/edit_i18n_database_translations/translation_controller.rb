@@ -6,6 +6,7 @@ module EditI18nDatabaseTranslations
 
     def save
       if translation
+        save_history(prefix, translation.value, params[:value])
         translation.update(value: params[:value])
       else
         Translation.create(locale: params[:locale],
@@ -23,6 +24,14 @@ module EditI18nDatabaseTranslations
     end
 
     private
+
+    def save_history(key, previous_value, new_value)
+      return unless EditI18nDatabaseTranslations.config.save_changes_history
+
+      TranslationsChangesHistory.create(key: key,
+                                        previous_value: previous_value,
+                                        new_value: new_value)
+    end
 
     def are_you_i18n_editor?
       true
