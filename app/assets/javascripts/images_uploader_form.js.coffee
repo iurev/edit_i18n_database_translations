@@ -16,13 +16,22 @@ $ ->
       value = $dom_element.css('background-image')
       value.replace('url(', '').replace(')', '')
 
+  get_parametr_by_name = (name, url) ->
+    name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]')
+    regex = new RegExp('[\\?&]' + name + '=([^&#]*)')
+    results = regex.exec(url)
+    if results == null
+      null
+    else
+      decodeURIComponent(results[1].replace(/\+/g, ' '))
+
   $body.on 'contextmenu', '*', (e) ->
     return if stop_watching
 
     e.preventDefault()
     $this = $(@)
     src = get_src($this)
-    key = src.split('?')[1]
+    key = get_parametr_by_name('i18n_key', src)
 
     return unless key
 
