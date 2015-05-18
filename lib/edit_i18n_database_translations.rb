@@ -14,4 +14,5 @@ module EditI18nDatabaseTranslations
   require 'edit_i18n_database_translations/engine.rb'
   require 'edit_i18n_database_translations/controller_module.rb'
   require 'edit_i18n_database_translations/translation_controller.rb'
+  require 'edit_i18n_database_translations/view_and_sass_helpers.rb'
 end
