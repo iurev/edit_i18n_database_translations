@@ -74,9 +74,12 @@ rails g model TranslationsChangesHistory key:string previous_value:string new_va
 ```
 
 If you do no wants to do that, just put
+
 ```
   config.save_changes_history = true
-``` in config file.
+```
+
+in config file.
 
 Restart your development server.
 
@@ -112,16 +115,25 @@ pages:
 ```
 = image_tag_i18n('pages.page1.image')
 ```
-It accepts all the options, which function ```image_tag``` can accept. And an option ```default```.
+
+It accepts all the options, which function
+
+```image_tag```
+
+can accept. And an option
+
+```default```.
 
 ```
 = image_tag_i18n('pages.page1.image', default: image_url('place.jpg'))
 ```
 
 It will add
+
 ```
 onerror="this.onerror=null;this.src='place.jpg'"
 ```
+
 in the image tag.
 
 
