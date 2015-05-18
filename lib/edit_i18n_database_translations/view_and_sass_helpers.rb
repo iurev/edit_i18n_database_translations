@@ -17,14 +17,19 @@ end
 
 module ActionView::Helpers::AssetTagHelper
   def image_tag_i18n(key, options = {})
-    url = I18n.t(key)
+    url = if options[:default]
+            default_image = "#{options[:default]}?#{key}"
+            I18n.t(key, default: default_image)
+          else
+            I18n.t(key)
+          end
+
     source = "#{url}?#{key}"
 
-    default_image = "'#{options[:default]}?#{key}'" || "'about:blank'"
-
-    onerror = "this.onerror=null;this.src=#{default_image}"
-
-    options.merge!({onerror: onerror})
+    if options[:default]
+      onerror = "this.onerror=null;this.src=#{default_image}"
+      options.merge!({onerror: onerror})
+    end
 
     image_tag(source, options)
   end
