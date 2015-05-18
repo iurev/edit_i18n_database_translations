@@ -1,0 +1,8 @@
+<table style="border: 1px dotted black" border="1" class="table table-striped">
+  <%- @list_of_keys.each do |key| %>
+    <tr>
+      <td><%= key %></td>
+      <td><%= image_tag_i18n(key) %></td>
+    </tr>
+  <% end %>
+</table>

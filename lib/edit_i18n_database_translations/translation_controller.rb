@@ -4,17 +4,12 @@ module EditI18nDatabaseTranslations
 
     before_action :set_locale, only: [:admin]
 
+    helper_method :show_images?
+
     def save
-      if translation
-        save_history(prefix, translation.value, params[:value])
-        translation.update(value: params[:value])
-      else
-        Translation.create(locale: params[:locale],
-                           key: prefix,
-                           value: params[:value])
-      end
-      I18n.reload!
-      return render(json: {})
+      create_or_update_translation(params[:value])
+      render(json: {})
+
     end
 
     def admin
@@ -23,10 +18,52 @@ module EditI18nDatabaseTranslations
       render template: 'edit_i18n_database_translations/admin.html.erb'
     end
 
+    def upload
+      save_file
+      file_path = ["/#{conf.save_images_path}", random_file_name].join('/')
+      create_or_update_translation(file_path)
+      redirect_to params[:redirect_to]
+    end
+
     private
 
+    def create_or_update_translation(value)
+      if translation
+        save_history(prefix, translation.value, value)
+        translation.update(value: value)
+      else
+        Translation.create(locale: params[:locale],
+                           key: prefix,
+                           value: value)
+      end
+      I18n.reload!
+    end
+
+    def random_file_name
+      return @random_file_name if @random_file_name
+      @random_file_name = random_string +
+                          File.extname(uploaded_io.original_filename)
+    end
+
+    def random_string
+      (0...25).map { ('a'..'z').to_a[rand(26)] }.join
+    end
+
+    def save_file
+      file_path = Rails.root.join('public',
+                                  conf.save_images_path,
+                                  random_file_name)
+      File.open(file_path, 'wb') do |file|
+        file.write(uploaded_io.read)
+      end
+    end
+
+    def uploaded_io
+      params[:picture]
+    end
+
     def save_history(key, previous_value, new_value)
-      return unless EditI18nDatabaseTranslations.config.save_changes_history
+      return unless conf.save_changes_history
 
       TranslationsChangesHistory.create(key: key,
                                         previous_value: previous_value,
@@ -46,6 +83,9 @@ module EditI18nDatabaseTranslations
           update_list_of_keys(prefix + key.to_s, value)
         }
       else
+        if show_images?
+          return unless conf.check_images_proc.call(prefix)
+        end
         @list_of_keys.push(prefix)
       end
     end
@@ -55,7 +95,7 @@ module EditI18nDatabaseTranslations
     end
 
     def allowed_keys
-      EditI18nDatabaseTranslations.config.allowed_keys
+      conf.allowed_keys
     end
 
     def all_translations
@@ -63,6 +103,10 @@ module EditI18nDatabaseTranslations
     end
 
     def allowed_translations
+      if show_images?
+        return all_translations
+      end
+
       if !prefix.empty?
         I18n.t(prefix)
       else
@@ -76,6 +120,14 @@ module EditI18nDatabaseTranslations
 
     def prefix
       params[:key].to_s
+    end
+
+    def show_images?
+      conf.show_images_tab && params[:images]
+    end
+
+    def conf
+      EditI18nDatabaseTranslations.config
     end
   end
 end

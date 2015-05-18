@@ -1,0 +1,16 @@
+<% config = EditI18nDatabaseTranslations.config %>
+
+<% I18n.available_locales.each do |locale| %>
+  <%= link_to locale, config.admin_path(locale: locale), class: "btn btn-default" %>
+<% end %>
+
+<% if config.show_images_tab %>
+  <%= link_to 'Images', config.admin_path(locale: locale, images: true), class: "btn btn-default" %>
+<% end %>
+
+<br />
+
+<%= link_to 'All', config.admin_path(locale: locale), class: "btn btn-default" %>
+<% config.favorite_pages.each do |page_data| %>
+  <%= link_to page_data[:name], config.admin_path(locale: locale, key: page_data[:key]), class: "btn btn-default" %>
+<% end %>

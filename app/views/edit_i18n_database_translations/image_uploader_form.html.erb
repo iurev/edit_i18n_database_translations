@@ -1,0 +1,12 @@
+<%= form_tag(EditI18nDatabaseTranslations.config.upload_path, multipart: true, class: 'images_uploader_form js-images-uploader-form', remote: true) do %>
+  <%= javascript_include_tag "images_uploader_form" %>
+  <%= stylesheet_link_tag "images_uploader_form"%>
+  <div class="background"></div>
+  <img src="about:blank" class="js-image">
+  <%= file_field_tag 'picture' %>
+  <input type="hidden" name="key" class="js-i18n-key">
+  <input type="hidden" name="locale" value="<%= I18n.locale %>">
+  <input type="hidden" name="redirect_to" class="js-redirect-to">
+  <%= button_tag 'save' %>
+  <div class="undo js-undo">Undo</div>
+<% end %>
