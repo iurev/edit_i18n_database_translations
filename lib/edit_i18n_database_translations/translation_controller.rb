@@ -29,6 +29,7 @@ module EditI18nDatabaseTranslations
 
     def create_or_update_translation(value)
       if translation
+        save_history(prefix, translation.value, value)
         translation.update(value: value)
       else
         Translation.create(locale: params[:locale],
@@ -58,6 +59,14 @@ module EditI18nDatabaseTranslations
 
     def uploaded_io
       params[:picture]
+    end
+
+    def save_history(key, previous_value, new_value)
+      return unless EditI18nDatabaseTranslations.config.save_changes_history
+
+      TranslationsChangesHistory.create(key: key,
+                                        previous_value: previous_value,
+                                        new_value: new_value)
     end
 
     def are_you_i18n_editor?
