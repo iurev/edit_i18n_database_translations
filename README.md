@@ -116,13 +116,9 @@ pages:
 = image_tag_i18n('pages.page1.image')
 ```
 
-It accepts all the options, which function
+It accepts all the options, which function **image_tag**
 
-```image_tag```
-
-can accept. And an option
-
-```default```.
+can accept. And an option **default**.
 
 ```
 = image_tag_i18n('pages.page1.image', default: image_url('place.jpg'))
