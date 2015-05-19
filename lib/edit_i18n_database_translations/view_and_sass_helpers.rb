@@ -17,20 +17,29 @@ end
 
 module ActionView::Helpers::AssetTagHelper
   def image_tag_i18n(key, options = {})
-    url = if options[:default]
-            default_image = "#{options[:default]}?i18n_key=#{key}"
-            I18n.t(key, default: default_image)
-          else
-            I18n.t(key)
-          end
-
-    source = "#{url}?i18n_key=#{key}"
+    default_image = ''
+    default_image_with_key = ''
+    url = ''
 
     if options[:default]
-      onerror = "this.onerror=null;this.src=#{default_image}"
+      default_image = options[:default]
+      begin
+        url = I18n.t(key, raise: true)
+      rescue I18n::MissingTranslationData
+        default_image_with_key = "#{default_image}?i18n_key=#{key}"
+        url = default_image
+      end
+    else
+      url = I18n.t(key)
+    end
+
+    source_with_key = "#{url}?i18n_key=#{key}"
+
+    if options[:default]
+      onerror = "this.onerror=null;this.src=#{default_image_with_key}"
       options.merge!({onerror: onerror})
     end
 
-    image_tag(source, options)
+    image_tag(source_with_key, options)
   end
 end
