@@ -39,6 +39,12 @@ module EditI18nDatabaseTranslations
         end
       end
 
+      if !prefix.empty?
+        keys.select! do |key|
+          key.index(prefix) == 0
+        end
+      end
+
       @list_of_keys = @list_of_keys + keys
       @list_of_keys.uniq!
     end
