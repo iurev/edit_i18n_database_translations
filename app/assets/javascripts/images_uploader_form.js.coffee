@@ -5,6 +5,9 @@ $ ->
   $key_input = $('.js-images-uploader-form .js-i18n-key')
   $redirect_to = $('.js-images-uploader-form .js-redirect-to')
 
+  $elem = null
+  previous_src = null
+
   $redirect_to.val(location.href)
 
   stop_watching = false
@@ -29,7 +32,7 @@ $ ->
     return if stop_watching
 
     e.preventDefault()
-    $this = $(@)
+    $elem = $this = $(@)
     src = get_src($this)
     key = get_parametr_by_name('i18n_key', src)
 
@@ -43,6 +46,24 @@ $ ->
 
   clear = ->
     stop_watching = false
+    if previous_src
+      $elem.attr('src', previous_src)
+      previous_src = null
     $form.hide()
 
+  save_previous_image = ->
+    previous_src = $elem.attr('src')
+
+  preview = (input) ->
+    reader = new FileReader()
+    reader.onload = (e) ->
+      $elem.attr('src', e.target.result)
+    reader.readAsDataURL(input.files[0])
+
   $body.on 'click', '.js-images-uploader-form .js-undo', clear
+
+  $body.on 'change', '.js-images-uploader-form .js-image-input', ->
+    return if !this.files[0]
+
+    save_previous_image()
+    preview(this)
