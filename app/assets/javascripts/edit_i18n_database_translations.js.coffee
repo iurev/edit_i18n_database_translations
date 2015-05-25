@@ -3,6 +3,7 @@ $ ->
   $editor = $('.js-i18n-text-editor')
   $input = $editor.find('.js-input')
   $textarea = $editor.find('.js-textarea')
+  $help = $editor.find('.js-help')
   $text = null
   $active_input = null
 
@@ -26,9 +27,11 @@ $ ->
     if field_name.indexOf("_html") != -1
       $active_input = $textarea.show()
       $input.hide()
+      $help.show()
     else
       $active_input = $input.show()
       $textarea.hide()
+      $help.hide()
 
   add_text_on_inputs = (text) ->
     $input.val(text)
@@ -58,3 +61,17 @@ $ ->
     $active_input = null
 
   $body.on 'click', '.js-i18n-text-editor .js-undo', clear
+
+  # http://stackoverflow.com/questions/1173194/select-all-div-text-with-single-mouse-click
+  select_text = (elem) ->
+    if document.selection
+      range = document.body.createTextRange()
+      range.moveToElementText elem
+      range.select()
+    else if window.getSelection
+      range = document.createRange()
+      range.selectNode elem
+      window.getSelection().addRange range
+
+  $body.on 'click', '.js-i18n-text-editor .js-help td', ->
+    select_text(@)
