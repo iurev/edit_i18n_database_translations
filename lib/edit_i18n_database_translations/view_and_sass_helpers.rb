@@ -31,7 +31,7 @@ module ActionView::Helpers::AssetTagHelper
       begin
         url = I18n.t(key, raise: true)
       rescue I18n::MissingTranslationData
-        if if defined?(are_you_i18n_editor?) && are_you_i18n_editor?
+        if defined?(are_you_i18n_editor?) && are_you_i18n_editor?
           default_image_with_key = "#{default_image}?i18n_key=#{key}"
         else
           default_image_with_key = default_image
@@ -43,7 +43,7 @@ module ActionView::Helpers::AssetTagHelper
       url = I18n.t(key)
     end
 
-    if if defined?(are_you_i18n_editor?) && are_you_i18n_editor?
+    if defined?(are_you_i18n_editor?) && are_you_i18n_editor?
       source_with_key = "#{url}?i18n_key=#{key}"
     else
       source_with_key = url
