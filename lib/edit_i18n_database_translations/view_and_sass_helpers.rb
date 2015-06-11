@@ -54,6 +54,10 @@ module ActionView::Helpers::AssetTagHelper
       options.merge!({onerror: onerror})
     end
 
+    unless options[:alt]
+      options[:alt] = nil
+    end
+
     image_tag(source_with_key, options)
   end
 end
