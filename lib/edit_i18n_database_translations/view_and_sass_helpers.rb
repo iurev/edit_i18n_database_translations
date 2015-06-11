@@ -9,9 +9,14 @@ end
 
 module ActionView::Helpers::AssetUrlHelper
   def image_url_i18n(key, options = {})
-    url = I18n.t(key)
-    source = "#{url}?i18n_key=#{key}"
-    url_to_asset(source, {type: :image}.merge!(options))
+    if are_you_i18n_editor?
+      url = I18n.t(key)
+      source = "#{url}?i18n_key=#{key}"
+      url_to_asset(source, {type: :image}.merge!(options))
+    else
+      url = I18n.t(key)
+      url_to_asset(source, {type: :image})
+    end
   end
 end
 
@@ -26,14 +31,23 @@ module ActionView::Helpers::AssetTagHelper
       begin
         url = I18n.t(key, raise: true)
       rescue I18n::MissingTranslationData
-        default_image_with_key = "#{default_image}?i18n_key=#{key}"
+        if are_you_i18n_editor?
+          default_image_with_key = "#{default_image}?i18n_key=#{key}"
+        else
+          default_image_with_key = default_image
+        end
+
         url = default_image
       end
     else
       url = I18n.t(key)
     end
 
-    source_with_key = "#{url}?i18n_key=#{key}"
+    if are_you_i18n_editor?
+      source_with_key = "#{url}?i18n_key=#{key}"
+    else
+      source_with_key = url
+    end
 
     if options[:default]
       onerror = "this.onerror=null;this.src=#{default_image_with_key}"
