@@ -9,8 +9,8 @@ module EditI18nDatabaseTranslations
         create_file "config/initializers/edit_i18n_database_translations.rb",
                     content
 
-        generate 'model',
-                 'Translation locale:string key:string value:text interpolations:textis_proc:boolean'
+        generate 'migration',
+                 'create_translations locale:string key:string value:text interpolations:text is_proc:boolean'
 
         generate 'model',
                  'TranslationsChangesHistory key:string previous_value:string new_value:string'
