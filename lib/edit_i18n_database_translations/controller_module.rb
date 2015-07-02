@@ -4,17 +4,14 @@ module EditI18nDatabaseTranslations
       params[:i18n_editor] == 'true'
     end
 
-    def i18n_editor_options
-      config = EditI18nDatabaseTranslations.config
-      {
-        name: config.user_name,
-        password: config.password,
-        if: :are_you_i18n_editor?
-      }
-    end
-
     def i18n_editor_auth!
-      self.class.http_basic_authenticate_with i18n_editor_options
+      return unless are_you_i18n_editor?
+
+      config = EditI18nDatabaseTranslations.config
+
+      authenticate_or_request_with_http_basic("Application") do |name, password|
+        name == config.user_name && password == config.password
+      end
     end
 
     def self.included(base)
