@@ -37,6 +37,9 @@ $ ->
     $input.val(text)
     $textarea.val(text)
 
+  submit_form = ->
+    $editor.submit()
+
   $body.on 'contextmenu', '.js-i18n-translation', (e) ->
     e.preventDefault()
     $text = $(@)
@@ -44,6 +47,8 @@ $ ->
     show_or_hide_inputs(field_name)
     add_text_on_inputs($text.html())
     $editor.show()
+    $body.on("edit_i18n_database_translations.esc", clear)
+    $body.on("edit_i18n_database_translations.enter", submit_form)
 
   $body.on 'keyup', '.js-i18n-text-editor .js-input', ->
     $text.html($(@).val())
@@ -59,6 +64,8 @@ $ ->
     $input.val('')
     $textarea.val('')
     $active_input = null
+    $body.off("edit_i18n_database_translations.esc", clear)
+    $body.off("edit_i18n_database_translations.enter", submit_form)
 
   $body.on 'click', '.js-i18n-text-editor .js-undo', clear
 

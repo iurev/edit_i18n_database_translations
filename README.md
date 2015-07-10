@@ -49,7 +49,7 @@ en.**yml**
 pages:
 	page1:
 		image: 'http://example.org/example.png'
-		
+
 ```
 
 #### index.**slim**:
@@ -83,6 +83,11 @@ background-image: image_url_i18n('pages.page1.image')
 
 But it **requires** assets recompilation.
 
+### Keybindings
+
+Cmd(Ctrl) + Enter = Submit
+
+Esc = Undo
 
 ## License
 

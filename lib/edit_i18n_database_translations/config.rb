@@ -12,7 +12,7 @@ module EditI18nDatabaseTranslations
 
     def initialize
       Rails.application.config.assets.precompile +=
-        %w( edit_i18n_database_translations.js edit_i18n_database_translations.css editor.css images_uploader_form.css images_uploader_form.js jquery.js )
+        %w( edit_i18n_database_translations.js edit_i18n_database_translations.css editor.css images_uploader_form.css images_uploader_form.js jquery.js keypresses.js)
     end
 
     def save_translation_path

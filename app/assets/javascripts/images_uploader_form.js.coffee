@@ -43,6 +43,8 @@ $ ->
     $preview_image.attr('src', src)
     $key_input.val(key)
     $form.show()
+    $body.on("edit_i18n_database_translations.esc", clear)
+    $body.on("edit_i18n_database_translations.enter", submit_form)
 
   clear = ->
     stop_watching = false
@@ -51,6 +53,8 @@ $ ->
       previous_src = null
     $form.hide()
     $form[0].reset()
+    $body.off("edit_i18n_database_translations.esc", clear)
+    $body.off("edit_i18n_database_translations.enter", submit_form)
 
   save_previous_image = ->
     previous_src = $elem.attr('src')
@@ -62,6 +66,9 @@ $ ->
     reader.readAsDataURL(input.files[0])
 
   $body.on 'click', '.js-images-uploader-form .js-undo', clear
+
+  submit_form = ->
+    $form.submit()
 
   $body.on 'change', '.js-images-uploader-form .js-image-input', ->
     return if !this.files[0]
