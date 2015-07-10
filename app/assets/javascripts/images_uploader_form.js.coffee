@@ -50,6 +50,7 @@ $ ->
       $elem.attr('src', previous_src)
       previous_src = null
     $form.hide()
+    $form[0].reset()
 
   save_previous_image = ->
     previous_src = $elem.attr('src')
