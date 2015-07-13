@@ -1,3 +1,5 @@
+@import 'colors'
+
 .images_uploader_form
   display: none
   position: fixed
@@ -7,6 +9,10 @@
   height: 50%
   z-index: 1000
   color: #000
+  align-items: center
+  justify-content: center
+  &.show
+    display: flex
 
   .background
     background: #fff
@@ -15,27 +21,54 @@
     height: 100%
     z-index: -1
     opacity: 0.9
+    top: 0
+    left: 0
 
   img
     max-width: 50%
     max-height: 100%
     display: block
     float: left
+    margin-right: 40px
 
   #picture
     float: left
 
   button
     float: left
+    background-color: $save
+    border: 0
+    color: #fff
+    height: 40px
+    padding-left: 10px
+    font-size: 20px
+    margin-top: 12px
+    &:hover
+      background-color: $save_hover
 
   .undo
     float: right
-    background-color: rgb(0, 168, 255)
+    background-color: $undo
     line-height: 40px
     color: #fff
     width: 100px
     cursor: pointer
     user-select: none
     text-align: center
+    width: 100%
+    margin-top: 30px
+    font-size: 20px
     &:hover
-      background-color: rgb(12, 152, 224)
+      background-color: $undo_hover
+
+  .inputs
+    display: flex
+    flex-direction: column
+    float: right
+    width: 20%
+
+  .wrapper
+    margin: 0 auto
+    margin-top: 40px
+    justify-content: center
+    width: 80%

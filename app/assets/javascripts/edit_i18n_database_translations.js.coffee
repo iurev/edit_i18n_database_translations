@@ -25,13 +25,11 @@ $ ->
 
   show_or_hide_inputs = (field_name) ->
     if field_name.indexOf("_html") != -1
-      $active_input = $textarea.show()
-      $input.hide()
-      $help.show()
+      $editor.addClass('html_editor')
+      $active_input = $textarea
     else
-      $active_input = $input.show()
-      $textarea.hide()
-      $help.hide()
+      $editor.addClass('text_editor')
+      $active_input = $input
 
   add_text_on_inputs = (text) ->
     $input.val(text)
@@ -46,7 +44,7 @@ $ ->
     field_name = $text.data('i18n-path')
     show_or_hide_inputs(field_name)
     add_text_on_inputs($text.html())
-    $editor.show()
+    $editor.addClass('show')
     $body.on("edit_i18n_database_translations.esc", clear)
     $body.on("edit_i18n_database_translations.enter", submit_form)
 
@@ -57,7 +55,7 @@ $ ->
     $text.html($(@).val())
 
   clear = ->
-    $editor.hide()
+    $editor.removeClass('show html_editor text_editor')
     $text = null
     field_name = ''
     text = ''

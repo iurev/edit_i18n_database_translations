@@ -42,7 +42,7 @@ $ ->
 
     $preview_image.attr('src', src)
     $key_input.val(key)
-    $form.show()
+    $form.addClass('show')
     $body.on("edit_i18n_database_translations.esc", clear)
     $body.on("edit_i18n_database_translations.enter", submit_form)
 
@@ -51,7 +51,7 @@ $ ->
     if previous_src
       $elem.attr('src', previous_src)
       previous_src = null
-    $form.hide()
+    $form.removeClass('show')
     $form[0].reset()
     $body.off("edit_i18n_database_translations.esc", clear)
     $body.off("edit_i18n_database_translations.enter", submit_form)

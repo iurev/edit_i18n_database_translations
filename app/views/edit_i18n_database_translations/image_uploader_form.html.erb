@@ -3,10 +3,13 @@
   <%= stylesheet_link_tag "images_uploader_form"%>
   <div class="background"></div>
   <img src="about:blank" class="js-image">
-  <%= file_field_tag 'picture', class: 'js-image-input' %>
+  <div class="inputs">
+    <%= file_field_tag 'picture', class: 'js-image-input' %>
+    <%= button_tag 'Save' %>
+    <div class="undo js-undo">Cancel</div>
+  </div>
   <input type="hidden" name="key" class="js-i18n-key">
   <input type="hidden" name="locale" value="<%= I18n.locale %>">
   <input type="hidden" name="redirect_to" class="js-redirect-to">
-  <%= button_tag 'save' %>
-  <div class="undo js-undo">Undo</div>
+
 <% end %>
