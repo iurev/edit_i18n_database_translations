@@ -1,9 +1,14 @@
 # Live editing I18n texts and images for content managers
 
-How it seems:
+How it looks:
 
-- todo: insert video or gif of live editing images and texts
-- toto: insert video or gif of editing texts and images in admin panel
+Text editing:
+
+[![image](https://cloud.githubusercontent.com/assets/3179564/8648973/c69fb904-298f-11e5-98e8-e462e0fdd39b.png)](https://cloud.githubusercontent.com/assets/3179564/8648887/ee457012-298e-11e5-8a89-1e16869e7b91.gif)
+
+Images editing:
+
+[![image](https://cloud.githubusercontent.com/assets/3179564/8649293/46ea418a-2993-11e5-8d15-463f767c4af8.png)](https://cloud.githubusercontent.com/assets/3179564/8648888/ee47f3b4-298e-11e5-9ffc-2cae56705793.gif)
 
 ## How to install:
 
