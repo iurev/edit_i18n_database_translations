@@ -36,6 +36,12 @@ Add
 
 in ApplicationController.rb
 
+And add this line in application.html.erb layout
+
+```
+<%= i18n_editor %>
+```
+
 Restart your development server.
 
 ## How to use
