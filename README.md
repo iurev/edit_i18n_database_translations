@@ -28,6 +28,14 @@ rails g edit_i18n_database_translations:install
 
 in the project console
 
+Add
+
+```
+    include EditI18nDatabaseTranslations::ControllerModule
+```
+
+in ApplicationController.rb
+
 Restart your development server.
 
 ## How to use
