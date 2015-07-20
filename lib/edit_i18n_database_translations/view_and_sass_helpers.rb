@@ -15,7 +15,7 @@ module ActionView::Helpers::AssetUrlHelper
       url_to_asset(source, {type: :image}.merge!(options))
     else
       url = I18n.t(key)
-      url_to_asset(source, {type: :image})
+      url_to_asset(url, {type: :image})
     end
   end
 end
