@@ -3,7 +3,7 @@ module EditI18nDatabaseTranslations
     def text(path)
       if are_you_i18n_editor?
         text = t(path)
-        if text.empty?
+        if text.blank?
           text = "edit it"
         end
 
