@@ -21,6 +21,15 @@ EditI18nDatabaseTranslations.configure do |config|
     allowed_extnames.include? extname
   end
 
+  config.after_save = Proc.new do |options|
+    # options[:key]
+    # options[:value]
+    # options[:locale]
+    # options[:file_path] - only for files
+
+    # Rails.cache.clear
+  end
+
   config.favorite_pages = [
     {name: 'Header', key: :header},
     {name: 'Main', key: :main}

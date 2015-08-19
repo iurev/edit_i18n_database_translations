@@ -8,6 +8,9 @@ module EditI18nDatabaseTranslations
 
     def save
       create_or_update_translation(params[:value])
+      conf.after_save.call(locale: params[:locale],
+                           key: params[:key],
+                           value: params[:value])
       render(json: {})
 
     end
@@ -23,6 +26,10 @@ module EditI18nDatabaseTranslations
       save_file
       file_path = ["/#{conf.save_images_path}", random_file_name].join('/')
       create_or_update_translation(file_path)
+      conf.after_save.call(locale: params[:locale],
+                           key: params[:key],
+                           value: params[:value],
+                           file_path: file_path)
       redirect_to params[:redirect_to]
     end
 

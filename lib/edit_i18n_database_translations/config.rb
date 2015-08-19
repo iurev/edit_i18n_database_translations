@@ -8,7 +8,8 @@ module EditI18nDatabaseTranslations
                   :show_images_tab,
                   :check_images_proc,
                   :save_changes_history,
-                  :save_images_path
+                  :save_images_path,
+                  :after_save
 
     def initialize
       Rails.application.config.assets.precompile +=
