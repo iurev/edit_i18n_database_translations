@@ -102,6 +102,24 @@ background-image: image_url_i18n('pages.page1.image')
 
 But it **requires** assets recompilation.
 
+
+### Admin panel
+
+You can access admin panel with all texts by typing ```i18n_editor/admin``` after root url in your project.
+
+[![image](https://cloud.githubusercontent.com/assets/3179564/9603188/42ebb0e2-50d9-11e5-85d3-b2b82835a612.png)
+
+Be careful!
+You have to edit initializer ```initializers/edit_i18n_database_translations.rb``` to load specific keys:
+
+```
+  config.allowed_keys = [:questions_pages, :seo, :share,
+                         :results_pages]
+                         
+```
+
+If you didn't add keys here, them will not appear in admin panel.                      
+
 ### Keybindings
 
 Cmd(Ctrl) + Enter = Submit
