@@ -1,12 +1,3 @@
-module Sass::Script::Functions
-  def image_url_i18n(key)
-    key = key.value
-    url = I18n.t(key)
-    ::Sass::Script::String.new("url(" + url + '?i18n_key=' + key + ")")
-  end
-  declare :image_url_i18n, [:string]
-end
-
 module ActionView::Helpers::AssetUrlHelper
   def image_url_i18n(key, options = {})
     if defined?(are_you_i18n_editor?) && are_you_i18n_editor?
