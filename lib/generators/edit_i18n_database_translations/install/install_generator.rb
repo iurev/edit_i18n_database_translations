@@ -9,6 +9,12 @@ module EditI18nDatabaseTranslations
         create_file "config/initializers/edit_i18n_database_translations.rb",
                     content
 
+        relative_path = '../templates/sync_from_prod.rake'
+        absolute_path = File.expand_path(relative_path, __FILE__)
+        content = File.read absolute_path
+        create_file "lib/tasks/sync_from_prod.rake",
+                    content
+
         generate 'migration',
                  'create_translations locale:string key:string value:text interpolations:text is_proc:boolean'
 
